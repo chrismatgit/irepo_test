@@ -574,6 +574,13 @@ class Test_Incident(unittest.TestCase):
         print(response.data)
         self.assertEqual(response.status_code, 200)
 
+    def test_no_incident(self):
+        response = self.tester.get(
+            '/api/v1/incidents/', content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+
+
     def test_get_unique_incident(self):
         report = {
             "comment": "No comment for now",
@@ -601,6 +608,12 @@ class Test_Incident(unittest.TestCase):
         )
         print(response.data)
         self.assertEqual(response.status_code, 200)
+
+    def test_no_incident_yet(self):
+        response = self.tester.get(
+            '/api/v1/incidents/1', content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
 
 
     def test_update_location(self):
@@ -635,6 +648,12 @@ class Test_Incident(unittest.TestCase):
         print(response.data)
         self.assertIn(reply["message"], "location updated successfully")
         self.assertEqual(response.status_code, 200)
+
+    def no_incident_for_locatiion(self):
+        response = self.tester.get(
+            '/api/v1/incidents/1/location', content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
 
     def test_update_location_is_empty(self):
         report = {
@@ -735,6 +754,12 @@ class Test_Incident(unittest.TestCase):
         self.assertIn(reply["message"], "comment updated successfully")
         self.assertEqual(response.status_code, 200)
 
+    def test_no_incident_for_comment(self):
+        response = self.tester.patch(
+            '/api/v1/incidents/1/comment', content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_update_comment_is_empty(self):
         report = {
             "comment": "No comment for now",
@@ -802,7 +827,6 @@ class Test_Incident(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_update_comment_when_no_red_flag(self):
-
         response = self.tester.patch(
             '/api/v1/incidents/1/comment', content_type='application/json'
         )
@@ -838,9 +862,16 @@ class Test_Incident(unittest.TestCase):
         print(response.data)
         self.assertIn(reply["message"], "incident deleted")
         self.assertEqual(response.status_code, 200)
+    
+    def test_no_incident_to_delete(self):
+        response = self.tester.delete(
+            '/api/v1/incidents/1', content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
 
 
 
     def tearDown(self):
         Incident.reports.clear()
+
 
