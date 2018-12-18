@@ -40,17 +40,17 @@ The UI pages do not need much to be viewed as any web browser can view them from
 ## Endpoints
 HTTP Method | Endpoint | Functionality | Parameters | Protected
 ----------- | -------- | ------------- | ---------- | ---------
-POST | /api/v1/signup/ | Create a user | None | False
-POST | /api/v1/login/ | Login a user | None | False
-GET | /api/v1/welcome | Welcome a user | None | True
-PATCH | /api/v1/user/promote/int:user_id | Promote a user as an admin| user_id | False
-GET | /api/v1/users/ | Fetch all users | None | False
-POST | /api/v1/incident/ | Create an incident | None | False
-GET | /api/v1/incidents/int:incident_id | Fetch a single incident record | incident_id | False
-GET | /api/v1/incidents/| Fetch all incident records | None | False
-PATCH | /api/v1/incidents/incident_id/comment| Update a comment of a single incident record | None | False
-PATCH | /api/v1/incidents/incident_id/location| Update a location of a single incident record | None | False
-DELETE | /api/v1/incidents/incident_id| Delete a single incident record | incident_id | False
+POST | /signup/ | Create a user | None | False
+POST | /login/ | Login a user | None | False
+GET | /welcome | Welcome a user | None | True
+PATCH | /user/promote/int:user_id | Promote a user as an admin| user_id | False
+GET | /users/ | Fetch all users | None | False
+POST | /incident/ | Create an incident | None | False
+GET | /incidents/int:incident_id | Fetch a single incident record | incident_id | False
+GET | /incidents/| Fetch all incident records | None | False
+PATCH | /incidents/incident_id/comment| Update a comment of a single incident record | None | False
+PATCH | /incidents/incident_id/location| Update a location of a single incident record | None | False
+DELETE | /incidents/incident_id| Delete a single incident record | incident_id | False
 
 
 ## Running the tests
@@ -75,9 +75,9 @@ The Python application is hosted on [Heroku](https://irepotest.herokuapp.com/)
 
 The project has been built with the following technologies so far:
 
-* HTML
+<!-- * HTML
 * CSS
-* Javascript
+* Javascript -->
 * Python/Flask
 
 ## Contributions

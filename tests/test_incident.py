@@ -3,7 +3,7 @@ import json
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from api.Views.routes import app
+from api import app
 from api.Models.Incidents import Incident
 
 class Test_Incident(unittest.TestCase):

@@ -3,7 +3,7 @@ import json
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from api.Views.routes import app
+from api import app
 from api.Models.Users import User
 
 class Test_User(unittest.TestCase):
@@ -834,7 +834,7 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_welcome(self):
-        response = self.tester.get('/')
+        response = self.tester.get('/api/v1/')
         self.assertEqual(response.status_code, 200)
 
 
