@@ -1,4 +1,5 @@
 class Incident(object):
+    '''Class contains incident's reports'''
     reports = []
     def __init__(self, incident_id, createdOn, createdBy, incType, location, status, image, video,comment):
         self.incident_id = incident_id

@@ -10,6 +10,7 @@ app.config['JWT_SECRET_KEY'] = 'SECretK1ey'
 
 @app.route('/')
 def test_route():
+    '''Function return a welcome message'''
     return "welcome to iReporter"
 
 @app.route('/api/v1/signup/', methods=['POST'])
@@ -73,3 +74,9 @@ def delete_a_unique_redflag(incident_id):
     response = delete_red_flag(incident_id)
     return response
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return jsonify({
+        'issue': 'you have entered an unknown URL',
+        'message': 'Please contact us for more details'
+    })

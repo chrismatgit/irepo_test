@@ -5,6 +5,10 @@ import datetime
 from flask_jwt_extended import create_access_token
 
 def create_incident():
+    '''Function creates a new incident to the reports list
+    :returns:
+    a success message and the incident.
+    '''
     try:
         data = request.get_json()
         incident_id = len(Incident.reports)+1
@@ -57,6 +61,10 @@ def create_incident():
         }), 400
 
 def get_all_incidents():
+    ''' Function enables the view of all the reports
+    :returns:
+    A list of all the incident created
+    '''
     validator = Incident_validation.empty_incident(Incident.reports)
     if not validator:
         return jsonify({
@@ -67,6 +75,12 @@ def get_all_incidents():
         return jsonify(validator), 400
 
 def get_unique_red_flag(incident_id):
+    ''' Function enables the view of a single red-flag record
+    :param:
+    incident_id - holds integer value of the id of the individual red-flag to be viewed
+    :returns:
+    Details of the red-flag whose id matches the one entered.
+    '''
     try:
         validator = Incident_validation.empty_incident(Incident.reports)
         if not validator:
@@ -84,6 +98,12 @@ def get_unique_red_flag(incident_id):
         }), 404
 
 def update_red_flag_loc(incident_id):
+    ''' Function enables the user to update a single red-flag record location
+    :param:
+    incident_id - holds integer value of the id of the individual red-flag to be updated
+    :returns:
+    A success message and the Details of the red-flag whose id matches the one entered and update the location if the incType equal red-flag.
+    '''
     try:
         validator = Incident_validation.empty_incident(Incident.reports)
         if not validator:
@@ -110,6 +130,12 @@ def update_red_flag_loc(incident_id):
         }), 400
 
 def update_red_flag_com(incident_id):
+    ''' Function enables the user to update a single red-flag record comment
+    :param:
+    incident_id - holds integer value of the id of the individual red-flag to be updated
+    :returns:
+    A success message and the Details of the red-flag whose id matches the one entered and update the comment if the incType equal red-flag.
+    '''
     try:
         validator = Incident_validation.empty_incident(Incident.reports)
         if not validator:
@@ -135,6 +161,12 @@ def update_red_flag_com(incident_id):
         }), 400
 
 def delete_red_flag(incident_id):
+    ''' Function enables a user to delete a single incident record
+    :param:
+    incident_id - holds integer value of the id of the individual incident to be deleted
+    :returns:
+    the success message and the Details of the incident whose id matches the one entered to be deleted.
+    '''
     try:
         validator = Incident_validation.empty_incident(Incident.reports)
         if not validator:

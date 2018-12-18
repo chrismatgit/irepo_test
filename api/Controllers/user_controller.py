@@ -5,6 +5,10 @@ from flask_jwt_extended import create_access_token
 import datetime
 
 def signup():
+    '''Function creates a new user to the accounts list
+    :returns:
+    a success message and the user information.
+    '''
     try:
         data = request.get_json()
         user_id = len(User.accounts)+1
@@ -64,6 +68,10 @@ def signup():
 
 
 def login():
+    '''Function allows a user to login after sign up
+    :returns:
+    a success message with the username
+    '''
     try:
         data = request.get_json()
         username = data.get("username")
@@ -100,6 +108,12 @@ def login():
 
 
 def promote_user_as_admin(user_id):
+    '''Function enables an admin to promote a user to be an admin
+    :params:
+    userd_id - holds integer value of the id of the individual user to be viewed
+    :returns:
+    a success message and the details of the user whose id matches the one entered by the user
+    '''
     try:
         validator = Validations.empty_user(User.accounts)
         if not validator:
@@ -126,6 +140,10 @@ def promote_user_as_admin(user_id):
         }), 404
 
 def get_all_users():
+    ''' Function enables the view of all the users
+    :returns:
+    A list of all the account created
+    '''
     validator = Validations.empty_user(User.accounts)
     if not validator:
         return jsonify({

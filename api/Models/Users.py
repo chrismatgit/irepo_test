@@ -1,4 +1,5 @@
 class User(object):
+    '''Class contains user's accounts'''
     accounts = []
     def __init__(self, user_id, firstname, lastname, othernames, email, phone_number, username, password, registered):
             self.user_id = user_id
