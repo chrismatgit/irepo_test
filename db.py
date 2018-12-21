@@ -8,10 +8,10 @@ class DatabaseConnection:
         if os.getenv('DB_NAME') == 'ireport_db':
             self.db_name = 'ireport_db'
         else:
-            self.db_name = 'chris'
+            self.db_name = 'ddvageejepfvgp'
 
         try:
-            self.connection = psycopg2.connect(dbname='ireport_db', user='postgres', host='localhost', password='Admin', port =5432)
+            self.connection = psycopg2.connect(dbname='ddvageejepfvgp', user='fjqrdfbxlzupju', host='ec2-174-129-25-182.compute-1.amazonaws.com', password='ef61d817399f1beacee358af0e58a8b6f1b6e913ca1a7936214d0a93d31b4de8', port =5432)
             self.connection.autocommit = True
             self.cursor = self.connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
             pprint('Connected to the database successfully')
