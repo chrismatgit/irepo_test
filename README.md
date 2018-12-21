@@ -62,7 +62,7 @@ Install pytest, source the .env file, run the tests.
   ```
 ## Deployment
 
-The Python application is hosted on [Heroku](https://irepotest.herokuapp.com/)
+The Python application is hosted on [Heroku](https://irepotest.herokuapp.com/api/v1/)
 
 
 ## Tools Used
