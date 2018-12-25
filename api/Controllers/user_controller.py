@@ -65,48 +65,48 @@ def signup():
 
 
 def login():
-    try:
-        data = request.get_json()
-        username = data.get("username")
-        password = data.get("password")
-        validator = Login_validation(username, password)
-        invalid_username = validator.validate_username()
-        invalid_password = validator.validate_password()
-            # valid = Validations.empty_user(validator)
+    # try:
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+    validator = Login_validation(username, password)
+    invalid_username = validator.validate_username()
+    invalid_password = validator.validate_password()
+        # valid = Validations.empty_user(validator)
 
-            # if not valid:
-        if not invalid_username:
-            if not invalid_password:
-                user = db.login(username)
-                # for user in User.accounts:
-                    # if user["username"]== username and user["password"] == password:
-                if user != None:
-                    if user["username"]== username and user["password"] == password:
-                        expires = datetime.timedelta(days=1)
-                        token = create_access_token(username, expires_delta=expires)
-                        return jsonify({
-                            "status": 200,
-                            "token": token,
-                            "message": f"{username} successfuly login"
-                        }), 200
-                    else:
-                        return jsonify({
-                            "status": 400,
-                            "error": "Wrong username or password"
-                        }), 400
+        # if not valid:
+    if not invalid_username:
+        if not invalid_password:
+            user = db.login(username)
+            # for user in User.accounts:
+                # if user["username"]== username and user["password"] == password:
+            if user != None:
+                if user["username"]== username and user["password"] == password:
+                    expires = datetime.timedelta(days=1)
+                    token = create_access_token(username, expires_delta=expires)
+                    return jsonify({
+                        "status": 200,
+                        "token": token,
+                        "message": f"{username} successfuly login"
+                    }), 200
                 else:
                     return jsonify({
                         "status": 400,
                         "error": "Wrong username or password"
                     }), 400
-            return jsonify(invalid_password), 400
-        return jsonify(invalid_username), 400
+            else:
+                return jsonify({
+                    "status": 400,
+                    "error": "Wrong username or password"
+                }), 400
+        return jsonify(invalid_password), 400
+    return jsonify(invalid_username), 400
     #     # return jsonify(valid), 400
-    except Exception:
-        return jsonify({
-            'status': 400,
-            'error': 'Something went wrong with your inputs'
-        }), 400
+    # except Exception:
+    #     return jsonify({
+    #         'status': 400,
+    #         'error': 'Something went wrong with your inputs'
+    #     }), 400
 
 
 # def promote_user_as_admin(user_id):
@@ -136,36 +136,36 @@ def login():
 #         }), 404
 
 def get_all_users():
-    try: 
-        if not db.query_all("users"):
-            return jsonify({
-                'status': 404,
-                'error': 'There are no user yet'
-            }), 404
-        accounts = db.query_all("users")
-        for account in accounts:
-            account_dict = {
-                "user_id": account["user_id"],
-                "firstname": account["firstname"],
-                "lastname": account["lastname"],
-                "othernames": account["othernames"],
-                "email": account["email"],
-                "phone_number": account["phone_number"],
-                "username": account["username"],
-                "password": account["password"],
-                "registered": account["registered"],
-                "isadmin": account["isadmin"]
-            }
-            User.accounts.append(account_dict)
+    # try: 
+    if not db.query_all("users"):
         return jsonify({
-            'status': 200,
-            'Data': User.accounts,
-            'message': 'Accounts fetched'
-        }), 200
+            'status': 404,
+            'error': 'There are no user yet'
+        }), 404
+    accounts = db.query_all("users")
+    for account in accounts:
+        account_dict = {
+            "user_id": account["user_id"],
+            "firstname": account["firstname"],
+            "lastname": account["lastname"],
+            "othernames": account["othernames"],
+            "email": account["email"],
+            "phone_number": account["phone_number"],
+            "username": account["username"],
+            "password": account["password"],
+            "registered": account["registered"],
+            "isadmin": account["isadmin"]
+        }
+        User.accounts.append(account_dict)
+    return jsonify({
+        'status': 200,
+        'Data': User.accounts,
+        'message': 'Accounts fetched'
+    }), 200
 
-    except Exception:
-        return jsonify({
-            'status': 400,
-            'error': 'something went wrong'
-        }), 400
+    # except Exception:
+    #     return jsonify({
+    #         'status': 400,
+    #         'error': 'something went wrong'
+    #     }), 400
 
