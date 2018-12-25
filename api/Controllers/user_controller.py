@@ -7,61 +7,61 @@ import datetime
 
 db = DatabaseConnection()
 def signup():
-    try:
-        data = request.get_json()
-        # user_id = len(User.accounts)+1
-        firstname = data.get("firstname")
-        lastname = data.get("lastname")
-        othernames = data.get("othernames")
-        email = data.get("email")
-        phone_number = data.get("phone_number")
-        username = data.get("username")
-        password = data.get("password")
-        registered = data.get("registered")
-        isAdmin = data.get("isAdmin")
+    # try:
+    data = request.get_json()
+    # user_id = len(User.accounts)+1
+    firstname = data.get("firstname")
+    lastname = data.get("lastname")
+    othernames = data.get("othernames")
+    email = data.get("email")
+    phone_number = data.get("phone_number")
+    username = data.get("username")
+    password = data.get("password")
+    registered = data.get("registered")
+    isAdmin = data.get("isAdmin")
 
-        # validations
-        validator = Validations(firstname, lastname, othernames, email, phone_number, username, password)
-        invalid_firstname = validator.validate_firstname()
-        invalid_lastname = validator.validate_lastname()
-        invalid_othernames = validator.validate_othernames()
-        invalid_email = validator.validate_email()
-        invalid_username = validator.validate_username()
-        invalid_phone_number = validator.validate_phone_number()
-        invalid_password = validator.validate_password()
-        valid = Validations.validate_signup(validator)
+    # validations
+    validator = Validations(firstname, lastname, othernames, email, phone_number, username, password)
+    invalid_firstname = validator.validate_firstname()
+    invalid_lastname = validator.validate_lastname()
+    invalid_othernames = validator.validate_othernames()
+    invalid_email = validator.validate_email()
+    invalid_username = validator.validate_username()
+    invalid_phone_number = validator.validate_phone_number()
+    invalid_password = validator.validate_password()
+    valid = Validations.validate_signup(validator)
 
-        # account = User(firstname, lastname, othernames, email, phone_number, username, password, registered)
+    # account = User(firstname, lastname, othernames, email, phone_number, username, password, registered)
 
-        if not valid:
-            if not invalid_firstname:
-                if not invalid_lastname:
-                    if not invalid_othernames:
-                        if not invalid_email:
-                            if not invalid_phone_number:
-                                if not invalid_username:
-                                    if not invalid_password:
+    if not valid:
+        if not invalid_firstname:
+            if not invalid_lastname:
+                if not invalid_othernames:
+                    if not invalid_email:
+                        if not invalid_phone_number:
+                            if not invalid_username:
+                                if not invalid_password:
 
-                                        #User.accounts.append(account.__dict__) 
-                                        db.user_signup(firstname, lastname, othernames, email, phone_number, username, password, registered, isAdmin)                        
-                                        return jsonify({
-                                            "status": 201,
-                                            "message": f"{firstname} has been created successfuly"
-                                        }), 201
-                                    return jsonify(invalid_password), 400
-                                return jsonify(invalid_username), 400
-                            return jsonify(invalid_phone_number), 400
-                        return jsonify(invalid_email), 400
-                    return jsonify(invalid_othernames), 400
-                return jsonify(invalid_lastname), 400
-            return jsonify(invalid_firstname), 400
-        return jsonify(valid), 400
+                                    #User.accounts.append(account.__dict__) 
+                                    db.user_signup(firstname, lastname, othernames, email, phone_number, username, password, registered, isAdmin)                        
+                                    return jsonify({
+                                        "status": 201,
+                                        "message": f"{firstname} has been created successfuly"
+                                    }), 201
+                                return jsonify(invalid_password), 400
+                            return jsonify(invalid_username), 400
+                        return jsonify(invalid_phone_number), 400
+                    return jsonify(invalid_email), 400
+                return jsonify(invalid_othernames), 400
+            return jsonify(invalid_lastname), 400
+        return jsonify(invalid_firstname), 400
+    return jsonify(valid), 400
 
-    except Exception:
-        return jsonify({
-            'status': 400,
-            'error': 'Something went wrong with your inputs'
-        }), 400
+    # except Exception:
+    #     return jsonify({
+    #         'status': 400,
+    #         'error': 'Something went wrong with your inputs'
+    #     }), 400
 
 
 def login():
