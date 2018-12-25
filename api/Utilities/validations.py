@@ -130,12 +130,10 @@ class Incident_validation:
                 }
         
     def validate_inctype(self):
-        if not self.inctype or self.inctype == "" or not self.inctype == "intervention" \
-        and not self.inctype == "red-flag" or not isinstance(self.inctype, str):
+        if not self.inctype or self.inctype == "" or not self.inctype == "intervention" and not self.inctype == "red-flag" or not isinstance(self.inctype, str):
             return {
                 'status': 400,
-                'error': 'inctype field can not be left empty, it should be eg: red-flag or intervention\
-                and should be a string'
+                'error': 'inctype field can not be left empty, it should be eg: red-flag or intervention and should be a string'
             }
     
     def validate_location(self):

@@ -5,23 +5,25 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
 from api.Views.routes import app
 from api.Models.Users import User
+from db import DatabaseConnection
+from base_test import BaseTest
 
-class Test_User(unittest.TestCase):
+class Test_User(BaseTest):
     def setUp(self):
-        self.tester = app.test_client()
+        self.tester = app.test_client(self)
+        self.db = DatabaseConnection()
 
     def test_signup(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -38,16 +40,15 @@ class Test_User(unittest.TestCase):
     
     def test_duplicate_username(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -61,16 +62,15 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -85,16 +85,15 @@ class Test_User(unittest.TestCase):
 
     def test_duplicate_email(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -108,16 +107,15 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma12125"
         }
 
         response = self.tester.post(
@@ -132,16 +130,15 @@ class Test_User(unittest.TestCase):
 
     def test_invalid_email(self):
         account = {
-            "email": "kellyexample.com",
+            "email": "kelly1212example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -158,14 +155,13 @@ class Test_User(unittest.TestCase):
         account = {
             "email": "",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -180,16 +176,15 @@ class Test_User(unittest.TestCase):
 
     def test_email_is_not_string(self):
         account = {
-            "email": 121231,
+            "email": True,
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -204,16 +199,15 @@ class Test_User(unittest.TestCase):
 
     def test_empty_firstname(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -229,16 +223,15 @@ class Test_User(unittest.TestCase):
 
     def test_firstname_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
-            "firstname": 12345,
-            "isAdmin": False,
+            "email": "kelly1212@example.com",
+            "firstname": 1233,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -254,16 +247,15 @@ class Test_User(unittest.TestCase):
 
     def test_empty_lastname(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -279,16 +271,15 @@ class Test_User(unittest.TestCase):
 
     def test_lastname_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
-            "lastname": 12234,
+            "isadmin": False,
+            "lastname": True,
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -303,16 +294,15 @@ class Test_User(unittest.TestCase):
 
     def test_empty_othername(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -328,16 +318,15 @@ class Test_User(unittest.TestCase):
 
     def test_orthername_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
-            "othernames": 1212121,
-            "password": "1212155454",
+            "othernames": 21124,
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -353,16 +342,15 @@ class Test_User(unittest.TestCase):
 
     def test_empty_password(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
             "password": "",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -378,16 +366,15 @@ class Test_User(unittest.TestCase):
 
     def test_password_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": 12121,
+            "password": False,
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -403,16 +390,15 @@ class Test_User(unittest.TestCase):
 
     def test_empty_phone_number(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212132",
+            "password": "password",
             "phone_number": "",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -428,16 +414,15 @@ class Test_User(unittest.TestCase):
 
     def test_phone_number_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "12121",
+            "password": "password",
             "phone_number": 7512345678,
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellyma"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -452,15 +437,14 @@ class Test_User(unittest.TestCase):
 
     def test_empty_username(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212132",
-            "phone_number": "781234567",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
+            "password": "password",
+            "phone_number": "07512345678",
+            "registered": "24-12-2018",
             "username": ""
         }
 
@@ -477,16 +461,15 @@ class Test_User(unittest.TestCase):
 
     def test_username_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "12121",
-            "phone_number": "7512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": 12265
+            "password": "password",
+            "phone_number": "07512345678",
+            "registered": "24-12-2018",
+            "username": 123
         }
 
         response = self.tester.post(
@@ -504,16 +487,15 @@ class Test_User(unittest.TestCase):
 
     def test_login(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -527,8 +509,8 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         login_info = {
-            "username": "kellym",
-            "password": "1212155454"
+            "username": "kellyma1212",
+            "password": "password"
         }
 
         response = self.tester.post(
@@ -538,21 +520,20 @@ class Test_User(unittest.TestCase):
         reply = json.loads(response.data.decode())
 
         print(response.data)
-        self.assertIn("kellym successfuly login", reply['message'])
+        self.assertIn("kellyma1212 successfuly login", reply['message'])
         self.assertEqual(response.status_code, 200)
 
     def test_login_username_is_empty(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -582,16 +563,15 @@ class Test_User(unittest.TestCase):
 
     def test_login_username_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -621,16 +601,15 @@ class Test_User(unittest.TestCase):
 
     def test_login_password_is_empty(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -644,7 +623,7 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         login_info = {
-            "username": "kellym",
+            "username": "kellyma1212",
             "password": ""
         }
 
@@ -660,16 +639,15 @@ class Test_User(unittest.TestCase):
 
     def test_login_password_is_not_string(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -683,7 +661,7 @@ class Test_User(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         login_info = {
-            "username": "kellym",
+            "username": "kellyma1212",
             "password": 1221215
         }
 
@@ -699,16 +677,15 @@ class Test_User(unittest.TestCase):
 
     def test_login_wrong_creditential(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -736,79 +713,78 @@ class Test_User(unittest.TestCase):
         self.assertIn("Wrong username or password", reply['error'])
         self.assertEqual(response.status_code, 400)
 
-    def test_promote_a_user(self):
-        account = {
-            "email": "kelly@example.com",
-            "firstname": "mary",
-            "isAdmin": False,
-            "lastname": "grace",
-            "othernames": "kelly",
-            "password": "1212155454",
-            "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
-        }
+#     def test_promote_a_user(self):
+#         account = {
+#             "email": "kelly@example.com",
+#             "firstname": "mary",
+#             "isAdmin": False,
+#             "lastname": "grace",
+#             "othernames": "kelly",
+#             "password": "1212155454",
+#             "phone_number": "07512345678",
+#             "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
+#             "user_id": 1,
+#             "username": "kellym"
+#         }
 
-        response = self.tester.post(
-            '/api/v1/signup/', content_type ='application/json',
-            data=json.dumps(account)
-        )
-        reply = json.loads(response.data.decode())
+#         response = self.tester.post(
+#             '/api/v1/signup/', content_type ='application/json',
+#             data=json.dumps(account)
+#         )
+#         reply = json.loads(response.data.decode())
 
-        print(response.data)
-        self.assertIn("mary has been created successfuly", reply['message'])
-        self.assertEqual(response.status_code, 201)
+#         print(response.data)
+#         self.assertIn("mary has been created successfuly", reply['message'])
+#         self.assertEqual(response.status_code, 201)
 
-        response = self.tester.patch(
-            '/api/v1/user/promote/1', content_type ='application/json'
-        )
-        print(response.data)
-        self.assertEqual(response.status_code, 200)
+#         response = self.tester.patch(
+#             '/api/v1/user/promote/1', content_type ='application/json'
+#         )
+#         print(response.data)
+#         self.assertEqual(response.status_code, 200)
 
     
-    def test_invalid_user_id_to_promote(self):
-        account = {
-            "email": "kelly@example.com",
-            "firstname": "mary",
-            "isAdmin": False,
-            "lastname": "grace",
-            "othernames": "kelly",
-            "password": "1212155454",
-            "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
-        }
+#     def test_invalid_user_id_to_promote(self):
+#         account = {
+#             "email": "kelly@example.com",
+#             "firstname": "mary",
+#             "isAdmin": False,
+#             "lastname": "grace",
+#             "othernames": "kelly",
+#             "password": "1212155454",
+#             "phone_number": "07512345678",
+#             "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
+#             "user_id": 1,
+#             "username": "kellym"
+#         }
 
-        response = self.tester.post(
-            '/api/v1/signup/', content_type ='application/json',
-            data=json.dumps(account)
-        )
-        reply = json.loads(response.data.decode())
+#         response = self.tester.post(
+#             '/api/v1/signup/', content_type ='application/json',
+#             data=json.dumps(account)
+#         )
+#         reply = json.loads(response.data.decode())
 
-        print(response.data)
-        self.assertIn("mary has been created successfuly", reply['message'])
-        self.assertEqual(response.status_code, 201)
+#         print(response.data)
+#         self.assertIn("mary has been created successfuly", reply['message'])
+#         self.assertEqual(response.status_code, 201)
 
-        response = self.tester.patch(
-            '/api/v1/user/promote/2', content_type ='application/json'
-        )
-        print(response.data)
-        self.assertEqual(response.status_code, 404)
+#         response = self.tester.patch(
+#             '/api/v1/user/promote/2', content_type ='application/json'
+#         )
+#         print(response.data)
+#         self.assertEqual(response.status_code, 404)
 
     def test_get_all_users(self):
         account = {
-            "email": "kelly@example.com",
+            "email": "kelly1212@example.com",
             "firstname": "mary",
-            "isAdmin": False,
+            "isadmin": False,
             "lastname": "grace",
             "othernames": "kelly",
-            "password": "1212155454",
+            "password": "password",
             "phone_number": "07512345678",
-            "registered": "Wed, 12 Dec 2018 10:49:07 GMT",
-            "user_id": 1,
-            "username": "kellym"
+            "registered": "24-12-2018",
+            "username": "kellyma1212"
         }
 
         response = self.tester.post(
@@ -836,9 +812,23 @@ class Test_User(unittest.TestCase):
     def test_welcome(self):
         response = self.tester.get('/')
         self.assertEqual(response.status_code, 200)
+    
+    def test_auth_welcome(self):
+        reply = self.login_user()
+        token = reply['token']
+        response = self.tester.get(
+            '/api/v1/welcome',
+            content_type='application/json',
+            headers={'Authorization': f'Bearer {token}'}
+        )
+
+        reply = json.loads(response.data.decode())
+
+        self.assertEqual(reply['message'], 'kellyma1212 thanks for using iReporter Api')
+        self.assertEqual(response.status_code, 200)
 
 
     def tearDown(self):
-        User.accounts.clear()
+        self.db.drop_table('users')
 
 

@@ -62,9 +62,9 @@ def create_incident():
 def get_all_incidents():
     if not db.query_all("incidents"):
         return jsonify({
-            'status': 400,
+            'status': 404,
             'error': 'There are incident yet'
-        })
+        }), 404
 
     incidents = db.query_all("incidents")
     for incident in incidents:

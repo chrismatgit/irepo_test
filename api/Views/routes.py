@@ -41,43 +41,43 @@ def welcome():
 
 @app.route('/api/v1/users/', methods=['GET']) 
 def get_users():
-    # if not db.query_all_user(self):
-    #     return jsonify('empty'), 400
-    # return jsonify({
-    #     'users': User.accounts
-    # }), 200
-
    response = get_all_users()
    return response
 
 
 @app.route('/api/v1/incident/', methods=['POST'])
+@jwt_required
 def create_report():
     response = create_incident()
     return response
 
 
 @app.route('/api/v1/incidents/', methods=['GET'])
+@jwt_required
 def get_incidents():
     response = get_all_incidents()
     return response
 
 @app.route('/api/v1/incidents/<int:incident_id>', methods=['GET'])
+@jwt_required
 def get_red_flag(incident_id):
     response = get_unique_red_flag(incident_id)
     return response
 
 @app.route('/api/v1/incidents/<int:incident_id>/location', methods=['PATCH'])
+@jwt_required
 def update_red_flag_location(incident_id):
     response = update_red_flag_loc(incident_id)
     return response
 
 @app.route('/api/v1/incidents/<int:incident_id>/comment', methods=['PATCH'])
+@jwt_required
 def update_red_flag_comment(incident_id):
     response = update_red_flag_com(incident_id)
     return response
 
 @app.route('/api/v1/incidents/<int:incident_id>', methods=['DELETE'])
+@jwt_required
 def delete_a_unique_redflag(incident_id):
     response = delete_red_flag(incident_id)
     return response

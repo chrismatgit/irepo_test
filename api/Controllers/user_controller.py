@@ -139,9 +139,9 @@ def get_all_users():
     try: 
         if not db.query_all("users"):
             return jsonify({
-                'status': 400,
+                'status': 404,
                 'error': 'There are no user yet'
-            })
+            }), 404
         accounts = db.query_all("users")
         for account in accounts:
             account_dict = {
