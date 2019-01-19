@@ -5,16 +5,33 @@ import os
 
 class DatabaseConnection:
     def __init__(self):
-        if os.getenv('DB_NAME') == 'ireport_db':
-            self.db_name = 'ireport_db'
-        else:
-            self.db_name = 'd1jupeo2f6v4bi'
 
         try:
-            self.connection = psycopg2.connect(dbname='d1jupeo2f6v4bi', user='tsoxxhfyxecczo', host='ec2-107-20-237-78.compute-1.amazonaws.com', password='1825eb8100f88eba7f214a3bbab3c4f101df868a18c4f39bbc003e6072b605d8', port =5432)
+            if os.getenv('DB_NAME') == 'ireportertest_db':
+                self.db_name = 'ireportertest_db'
+                self.user ='postgres'
+                self.host='localhost'
+                self.password='Admin'
+                self.port =5432
+
+            elif os.getenv('DB_NAME') == 'ireport_db':
+                self.db_name = 'ireport_db'
+                self.user ='postgres'
+                self.host='localhost'
+                self.password='Admin'
+                self.port =5432
+            
+            else:
+                self.db_name = 'disiprm0el8v0'
+                self.user ='wuifhlbpisdwvn'
+                self.host='ec2-54-225-89-195.compute-1.amazonaws.com'
+                self.password='968008dc102c6f5ffa2701c3befd72a80602b1f2dae8ed29b42cc2edf0f3c9d3'
+                self.port =5432
+
+            self.connection = psycopg2.connect(dbname=self.db_name, user=self.user, host=self.host, password=self.password, port =self.port)
             self.connection.autocommit = True
             self.cursor = self.connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-            pprint('Connected to the database successfully')
+            pprint('Connected to the database '+ self.db_name +' successfully')
 
             create_user_table = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL NOT NULL PRIMARY KEY,firstname TEXT NOT NULL, lastname TEXT NOT NULL, othernames TEXT NOT NULL, email TEXT NOT NULL, phone_number TEXT NOT NULL, username TEXT NOT NULL, password TEXT NOT NULL, registered TEXT NOT NULL, isadmin BOOL DEFAULT FALSE);"
             self.cursor.execute(create_user_table)
@@ -85,8 +102,3 @@ class DatabaseConnection:
     def drop_table(self, table_name):
         drop = f"DROP TABLE {table_name};"
         self.cursor.execute(drop)
-
-
-
-# if __name__ == "__main__":
-#     db = DatabaseConnection()
